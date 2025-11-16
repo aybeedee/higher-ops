@@ -1,11 +1,32 @@
 import { useState } from "react";
 import "./App.css";
-import { Button, Input } from "./components/atoms";
-import { MAX_STARTING_NUMBER } from "./lib/constants";
+import {
+  Button,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/atoms";
+import { MAX_STARTING_NUMBER } from "@/lib/constants";
+import { InfoIcon } from "lucide-react";
 
 function App() {
   const [startingNumber, setStartingNumber] = useState<string>();
   const [error, setError] = useState<string>("");
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState<boolean>(false);
 
   const click = () => {
     console.log(startingNumber);
@@ -36,7 +57,7 @@ function App() {
             <Input
               type="number"
               placeholder="What number is on your mind?"
-              className="border-none"
+              className="border-none text-lg!"
               max={MAX_STARTING_NUMBER}
               onChange={handleStartingNumberChange}
             />
@@ -47,6 +68,7 @@ function App() {
               className="rounded-full font-semibold"
               onClick={click}
               disabled={!startingNumber || !!error}
+              size="lg"
             >
               Post
             </Button>
@@ -70,11 +92,125 @@ function App() {
             variant="secondary"
             className="rounded-full font-semibold"
             size="lg"
+            onClick={() => setIsSignupModalOpen(true)}
           >
             Sign up
           </Button>
         </div>
       </div>
+      <Dialog open={isSignupModalOpen} onOpenChange={setIsSignupModalOpen}>
+        <DialogContent
+          showCloseButton={false}
+          className="bg-black border border-[#2f3336] shadow-2xl"
+        >
+          <div className="flex flex-col gap-8 text-white pb-5 px-5">
+            <div className="flex flex-col gap-4">
+              <DialogTitle className="text-2xl font-extrabold text-center">
+                Sign Up
+              </DialogTitle>
+              <DialogDescription className="text-base font-light text-center">
+                Register to join the arithmetic
+              </DialogDescription>
+            </div>
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2">
+                <p className="font-semibold">Username</p>
+                <InputGroup className="border border-[#2f3336]">
+                  <InputGroupInput
+                    placeholder="aybeedee"
+                    type="text"
+                    className="text-base!"
+                  />
+                  <InputGroupAddon align="inline-start">
+                    <InputGroupText>@</InputGroupText>
+                  </InputGroupAddon>
+                  <InputGroupAddon align="inline-end">
+                    <Tooltip>
+                      <TooltipTrigger
+                        asChild
+                        className="hover:bg-white/10 hover:text-white"
+                      >
+                        <InputGroupButton
+                          variant="ghost"
+                          aria-label="Info"
+                          size="icon-xs"
+                        >
+                          <InfoIcon className="size-5" />
+                        </InputGroupButton>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="text-center text-sm">
+                          <span>
+                            Username must be between 6 to 20 characters with no
+                          </span>
+                          <br />
+                          <span>special characters except underscore</span>
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </InputGroupAddon>
+                </InputGroup>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <p className="font-semibold">Password</p>
+                <InputGroup className="border border-[#2f3336]">
+                  <InputGroupInput
+                    placeholder="Enter password"
+                    type="password"
+                    className="text-base!"
+                  />
+                  <InputGroupAddon align="inline-end">
+                    <Tooltip>
+                      <TooltipTrigger
+                        asChild
+                        className="hover:bg-white/10 hover:text-white"
+                      >
+                        <InputGroupButton
+                          variant="ghost"
+                          aria-label="Info"
+                          size="icon-xs"
+                        >
+                          <InfoIcon className="size-5" />
+                        </InputGroupButton>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="text-sm">
+                          Password must be between 8 to 16 characters
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </InputGroupAddon>
+                </InputGroup>
+              </div>
+              <Button
+                variant="secondary"
+                className="rounded-full font-semibold mt-2"
+                size="lg"
+              >
+                Sign up
+              </Button>
+            </div>
+          </div>
+
+          {/* <Input type="text" />
+          <Input type="password" /> */}
+
+          {/* <DialogClose asChild>
+            <Button type="button" variant="secondary">
+              Close
+            </Button>
+          </DialogClose> */}
+
+          {/* <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </DialogDescription>
+          </DialogHeader> */}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
