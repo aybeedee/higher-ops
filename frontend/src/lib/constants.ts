@@ -1,0 +1,1 @@
+export const MAX_STARTING_NUMBER = 9000;
