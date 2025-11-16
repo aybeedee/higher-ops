@@ -3,12 +3,9 @@ import "./App.css";
 import {
   Button,
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogHeader,
   DialogTitle,
-  DialogTrigger,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -85,7 +82,11 @@ function App() {
           </p>
         </div>
         <div className="flex gap-2 sm:gap-3">
-          <Button className="rounded-full font-semibold" size="lg">
+          <Button
+            className="rounded-full font-semibold"
+            size="lg"
+            onClick={() => setIsLoginModalOpen(true)}
+          >
             Log in
           </Button>
           <Button
@@ -98,6 +99,56 @@ function App() {
           </Button>
         </div>
       </div>
+      <Dialog open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}>
+        <DialogContent
+          showCloseButton={false}
+          className="bg-black border border-[#2f3336] shadow-2xl"
+        >
+          <div className="flex flex-col gap-8 text-white pb-5 px-5">
+            <div className="flex flex-col gap-4">
+              <DialogTitle className="text-2xl font-extrabold text-center">
+                Log In
+              </DialogTitle>
+              <DialogDescription className="text-base font-light text-center">
+                Ready for operations
+              </DialogDescription>
+            </div>
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2">
+                <p className="font-semibold">Username</p>
+                <InputGroup className="border border-[#2f3336]">
+                  <InputGroupInput
+                    placeholder="aybeedee"
+                    type="text"
+                    className="text-base!"
+                  />
+                  <InputGroupAddon align="inline-start">
+                    <InputGroupText>@</InputGroupText>
+                  </InputGroupAddon>
+                </InputGroup>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <p className="font-semibold">Password</p>
+                <InputGroup className="border border-[#2f3336]">
+                  <InputGroupInput
+                    placeholder="Enter password"
+                    type="password"
+                    className="text-base!"
+                  />
+                </InputGroup>
+              </div>
+              <Button
+                variant="secondary"
+                className="rounded-full font-semibold mt-2"
+                size="lg"
+              >
+                Log in
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
       <Dialog open={isSignupModalOpen} onOpenChange={setIsSignupModalOpen}>
         <DialogContent
           showCloseButton={false}
@@ -192,23 +243,6 @@ function App() {
               </Button>
             </div>
           </div>
-
-          {/* <Input type="text" />
-          <Input type="password" /> */}
-
-          {/* <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Close
-            </Button>
-          </DialogClose> */}
-
-          {/* <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
-            <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </DialogDescription>
-          </DialogHeader> */}
         </DialogContent>
       </Dialog>
     </div>
