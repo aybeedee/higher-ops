@@ -44,7 +44,7 @@ model Operation {
   rightValue Float?
   value      Float
   // materialized path for lookup flexibility; dot separated ids, e.g "100.124.156"
-  path       String
+  path       String?
   createdAt  DateTime       @default(now())
   updatedAt  DateTime       @updatedAt
 
