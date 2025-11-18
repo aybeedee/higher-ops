@@ -26,29 +26,31 @@ model User {
   id         Int         @id @default(autoincrement())
   username   String      @unique
   password   String
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
   operations Operation[]
 
   @@index([username])
+  @@map("users")
 }
 
 model Operation {
   id         Int            @id @default(autoincrement())
-  parentId   Int?
+  parentId   Int?           @map("parent_id")
   parent     Operation?     @relation("OperationChildren", fields: [parentId], references: [id])
   children   Operation[]    @relation("OperationChildren")
-  userId     Int
+  userId     Int            @map("user_id")
   user       User           @relation(fields: [userId], references: [id])
   op         OperationType?
-  rightValue Float?
+  rightValue Float?         @map("right_value")
   value      Float
   // materialized path for lookup flexibility; dot separated ids, e.g "100.124.156"
   path       String?
-  createdAt  DateTime       @default(now())
-  updatedAt  DateTime       @updatedAt
+  createdAt  DateTime       @default(now()) @map("created_at")
+  updatedAt  DateTime       @updatedAt @map("updated_at")
 
   @@index([path])
   @@index([parentId])
   @@index([userId])
+  @@map("operations")
 }
