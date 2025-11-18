@@ -2,7 +2,6 @@ import { Injectable, ConflictException } from "@nestjs/common";
 import { UsersService } from "../users/users.service";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "src/prisma/prisma.service";
-import { User } from "generated/prisma/client";
 import bcrypt from "bcryptjs";
 import { SignupDto } from "./auth.dto";
 
@@ -23,8 +22,8 @@ export class AuthService {
     return null;
   }
 
-  async getToken(user: Omit<User, "password">) {
-    const payload = { username: user.username, sub: user.id };
+  async getToken(id: number, username: string) {
+    const payload = { sub: id, username };
     return {
       accessToken: await this.jwtService.signAsync(payload),
     };
@@ -41,7 +40,6 @@ export class AuthService {
       data: { username, password: hashedPassword },
     });
 
-    const { password, ...result } = user;
-    return await this.getToken(result);
+    return await this.getToken(user.id, user.username);
   }
 }
