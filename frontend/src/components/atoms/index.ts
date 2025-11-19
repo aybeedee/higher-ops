@@ -27,3 +27,5 @@ export {
   TooltipProvider,
   TooltipTrigger,
 } from "./tooltip";
+export { Spinner } from "./spinner";
+export { Toaster } from "./sonner";
