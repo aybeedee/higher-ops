@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Button, Input } from "@/components/atoms";
+import { Button, Input, Spinner } from "@/components/atoms";
 import { MAX_STARTING_NUMBER } from "@/lib/constants";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "@/api/client";
@@ -13,7 +13,7 @@ const Home = () => {
   const {
     data,
     isFetching: isProfileFetching,
-    isSuccess,
+    isSuccess: isAuthenticated,
   } = useQuery<{ id: number; username: string }>({
     queryKey: ["profile"],
     queryFn: async () => {
@@ -23,9 +23,9 @@ const Home = () => {
     retry: false,
   });
 
-  const isAuthenticated = useMemo(
-    () => !isProfileFetching && isSuccess,
-    [isProfileFetching, isSuccess]
+  const showAnonFooter = useMemo(
+    () => !isProfileFetching && !isAuthenticated,
+    [isAuthenticated, isProfileFetching]
   );
 
   const click = () => {
@@ -49,6 +49,11 @@ const Home = () => {
   return (
     <div className="bg-black min-h-screen min-w-screen text-white flex justify-center dark">
       <div className="min-h-screen border-x border-[#2f3336] w-screen sm:w-[70vw] md:w-[60vw] lg:w-[50vw] 2xl:w-[35vw]">
+        {isProfileFetching && (
+          <div className="flex justify-center items-center h-full">
+            <Spinner className="size-20 stroke-1" />
+          </div>
+        )}
         {isAuthenticated && (
           <div className="flex flex-col border-y border-[#2f3336] p-5">
             <div className="flex flex-row">
@@ -81,7 +86,7 @@ const Home = () => {
           </div>
         )}
       </div>
-      {!isAuthenticated && <AuthFooter />}
+      {showAnonFooter && <AuthFooter />}
     </div>
   );
 };
