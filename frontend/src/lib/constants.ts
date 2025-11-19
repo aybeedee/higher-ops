@@ -1,1 +1,20 @@
 export const MAX_STARTING_NUMBER = 9000;
+export const TAILWIND_BG_COLORS = [
+  "bg-red-800 border-red-700",
+  "bg-orange-800 border-orange-700",
+  "bg-amber-800 border-amber-700",
+  "bg-yellow-800 border-yellow-700",
+  "bg-lime-800 border-lime-700",
+  "bg-green-800 border-green-700",
+  "bg-emerald-800 border-emerald-700",
+  "bg-teal-800 border-teal-700",
+  "bg-cyan-800 border-cyan-700",
+  "bg-sky-800 border-sky-700",
+  "bg-blue-800 border-blue-700",
+  "bg-indigo-800 border-indigo-700",
+  "bg-violet-800 border-violet-700",
+  "bg-purple-800 border-purple-700",
+  "bg-fuchsia-800 border-fuchsia-700",
+  "bg-pink-800 border-pink-700",
+  "bg-rose-800 border-rose-700",
+];
