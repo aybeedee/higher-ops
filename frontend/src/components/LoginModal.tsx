@@ -9,18 +9,47 @@ import {
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
+  Spinner,
 } from "@/components/atoms";
 import { X } from "lucide-react";
 import type { AuthFormData } from "@/lib/types";
 import { useState } from "react";
 import type { DialogProps } from "@radix-ui/react-dialog";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import apiClient from "@/api/client";
+import { isAxiosError } from "axios";
+import { toast } from "sonner";
 
 export const LoginModal = ({ open, onOpenChange }: DialogProps) => {
+  const queryClient = useQueryClient();
   const [loginData, setLoginData] = useState<AuthFormData>({
     username: "",
     password: "",
   });
   const [isLoginDataValid, setIsLoginDataValid] = useState<boolean>(false);
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: AuthFormData) => apiClient.post("/auth/login", data),
+    onError: (error) => {
+      const message = isAxiosError(error)
+        ? error.response?.data.message
+        : error.message;
+
+      toast.error(
+        <p className="text-base text-start">{`Login failed. ${
+          message || "Please try again"
+        }`}</p>
+      );
+    },
+    onSuccess: (res) => {
+      localStorage.setItem("accessToken", res.data.accessToken);
+      toast.success(
+        <p className="text-base text-start">Login successful! Welcome back</p>
+      );
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+      onOpenChange?.(false);
+    },
+  });
 
   const handleLoginDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData((prev) => {
@@ -95,8 +124,10 @@ export const LoginModal = ({ open, onOpenChange }: DialogProps) => {
               variant="secondary"
               className="rounded-full font-semibold mt-2"
               size="lg"
-              disabled={!isLoginDataValid}
+              disabled={!isLoginDataValid || isPending}
+              onClick={() => mutate(loginData)}
             >
+              {isPending && <Spinner />}
               Log in
             </Button>
           </div>
