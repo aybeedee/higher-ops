@@ -15,4 +15,20 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      const token = localStorage.getItem("accessToken");
+
+      if (token) {
+        localStorage.removeItem("accessToken");
+        window.location.reload();
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 export default apiClient;
