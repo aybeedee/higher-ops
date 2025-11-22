@@ -40,7 +40,7 @@ export const ReplyModal = ({
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: ReplyData) =>
-      apiClient.post(`/operations/${post.id}/reply`, data),
+      apiClient.post(`/operations/${post.id}/replies`, data),
     onError: (error) => {
       const message = isAxiosError(error)
         ? error.response?.data.message

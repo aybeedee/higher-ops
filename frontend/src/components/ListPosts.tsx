@@ -39,7 +39,7 @@ export const ListPosts = ({ user }: { user?: User }) => {
       <Spinner className="size-20 stroke-1" />
     </div>
   ) : (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 h-full">
       {posts.map((post) => (
         <Post key={post.id} post={post} user={user} />
       ))}

@@ -66,7 +66,7 @@ export const CreatePost = ({ user: { id, username } }: { user: User }) => {
     <div className="flex flex-col border-y border-[#2f3336] p-5">
       <div className="flex flex-row">
         <div
-          className={`rounded-full min-h-10 content-center min-w-10 border ${getColor(
+          className={`rounded-full min-h-10 min-w-10 content-center text-center border ${getColor(
             id
           )}`}
         >
@@ -79,6 +79,7 @@ export const CreatePost = ({ user: { id, username } }: { user: User }) => {
           max={MAX_NUMBER}
           min={MIN_NUMBER}
           onChange={handleStartingNumberChange}
+          value={startingNumber}
         />
       </div>
       <div className="w-full flex justify-end items-center gap-4">
