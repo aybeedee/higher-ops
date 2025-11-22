@@ -3,7 +3,7 @@ import { UsersService } from "../users/users.service";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "src/prisma/prisma.service";
 import bcrypt from "bcryptjs";
-import { SignupDto } from "./auth.dto";
+import { SignupBodyDto } from "./auth.dto";
 
 @Injectable()
 export class AuthService {
@@ -29,8 +29,8 @@ export class AuthService {
     };
   }
 
-  async signup(signupDto: SignupDto) {
-    const { username, password: plainPassword } = signupDto;
+  async signup(body: SignupBodyDto) {
+    const { username, password: plainPassword } = body;
 
     const existingUser = await this.usersService.findOne({ username });
     if (existingUser) throw new ConflictException("Username already exists");

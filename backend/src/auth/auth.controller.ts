@@ -9,7 +9,7 @@ import {
 import { AuthService } from "./auth.service";
 import { JwtAuthGuard } from "./jwt-auth.guard";
 import { LocalAuthGuard } from "./local-auth.guard";
-import { SignupDto } from "./auth.dto";
+import { SignupBodyDto } from "./auth.dto";
 import { type ReqWithUser } from "src/lib/types";
 
 @Controller("auth")
@@ -17,8 +17,8 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post("signup")
-  async signup(@Body() signupDto: SignupDto) {
-    return this.authService.signup(signupDto);
+  async signup(@Body() body: SignupBodyDto) {
+    return this.authService.signup(body);
   }
 
   @UseGuards(LocalAuthGuard)

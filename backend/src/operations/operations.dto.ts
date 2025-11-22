@@ -1,26 +1,31 @@
 import { OperationType } from "generated/prisma/enums";
-import { IsEnum, IsNumber, IsOptional, Max } from "class-validator";
+import { IsEnum, IsNumber, IsOptional, Max, Min } from "class-validator";
 import { Transform } from "class-transformer";
 
-export class CreateOperationDto {
+export class CreateOperationBodyDto {
   @IsNumber()
   @Max(9000)
+  @Min(-9000)
   value: number;
 }
 
-export class ReplyDto {
+export class ReplyParamsDto {
+  @Transform(({ value }: { value: string }) => parseInt(value))
+  @IsNumber()
+  parentId: number;
+}
+
+export class ReplyBodyDto {
   @IsEnum(OperationType)
   op: OperationType;
 
   @IsNumber()
   @Max(9000)
+  @Min(-9000)
   rightValue: number;
-
-  @IsNumber()
-  parentId: number;
 }
 
-export class GetOperationsDto {
+export class GetOperationsQueryDto {
   @IsNumber()
   @IsOptional()
   @Transform(({ value }: { value: string }) => parseInt(value))
