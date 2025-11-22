@@ -29,3 +29,15 @@ export {
 } from "./tooltip";
 export { Spinner } from "./spinner";
 export { Toaster } from "./sonner";
+export {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "./select";
