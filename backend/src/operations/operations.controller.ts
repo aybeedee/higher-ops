@@ -38,7 +38,7 @@ export class OperationsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post(":parentId/reply")
+  @Post(":parentId/replies")
   async reply(
     @Request() req: ReqWithUser,
     @Param() params: ReplyParamsDto,
@@ -66,7 +66,21 @@ export class OperationsController {
   }
 
   @Get()
-  async fetchAll(@Query() { currentPage, pageSize }: GetOperationsQueryDto) {
-    return await this.operationsService.findAll(currentPage, pageSize);
+  async fetchAll(@Query() query: GetOperationsQueryDto) {
+    return await this.operationsService.findAll(
+      query.currentPage,
+      query.pageSize,
+    );
+  }
+
+  @Get(":parentId/replies")
+  async fetchReplies(@Param() params: ReplyParamsDto) {
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve(null);
+      }, 2000),
+    );
+
+    return await this.operationsService.findReplies(params.parentId);
   }
 }

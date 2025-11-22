@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Prisma } from "generated/prisma/client";
 import { OperationType } from "generated/prisma/enums";
 import { PrismaService } from "src/prisma/prisma.service";
@@ -62,6 +62,28 @@ export class OperationsService {
         nextCursor: skip + take < total ? currentPage + 1 : null,
       },
     };
+  }
+
+  /*
+    for extending this logic for an n depth heirarchical response,
+    can add a depth param to the function and query all descendants with materialized path matching + regex or something to match dots separating ids
+    and can construct heirarchical response in server code and/or offload to a raw query for better performance with ltree or something
+  */
+  async findReplies(parentId: number) {
+    const parent = await this.findOne({
+      id: parentId,
+    });
+
+    if (!parent) throw new NotFoundException("Parent operation not found");
+
+    return await this.prisma.operation.findMany({
+      where: { parentId },
+      include: {
+        user: { select: { id: true, username: true } },
+        _count: { select: { children: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    });
   }
 
   calculate(op: OperationType, leftValue: number, rightValue: number) {
