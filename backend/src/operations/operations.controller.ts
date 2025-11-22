@@ -75,12 +75,6 @@ export class OperationsController {
 
   @Get(":parentId/replies")
   async fetchReplies(@Param() params: ReplyParamsDto) {
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve(null);
-      }, 2000),
-    );
-
     return await this.operationsService.findReplies(params.parentId);
   }
 }

@@ -35,7 +35,7 @@ export class OperationsService {
     return await this.prisma.operation.findUnique({ where });
   }
 
-  async findAll(currentPage = 1, pageSize = 20) {
+  async findAll(currentPage = 1, pageSize = 10) {
     const take = Math.max(1, Math.min(100, pageSize));
     const skip = Math.max(0, (Math.max(1, currentPage) - 1) * take);
 

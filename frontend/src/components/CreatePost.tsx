@@ -63,7 +63,7 @@ export const CreatePost = ({ user: { id, username } }: { user: User }) => {
   };
 
   return (
-    <div className="flex flex-col border-y border-[#2f3336] p-5">
+    <div className="flex flex-col border-y border-[#2f3336] p-5 gap-2">
       <div className="flex flex-row">
         <div
           className={`rounded-full min-h-10 min-w-10 content-center text-center border ${getColor(

@@ -19,4 +19,4 @@ export const TAILWIND_BG_COLORS = [
   "bg-pink-800 border-pink-700",
   "bg-rose-800 border-rose-700",
 ];
-export const DEFAULT_PAGE_SIZE = 20;
+export const DEFAULT_PAGE_SIZE = 10;

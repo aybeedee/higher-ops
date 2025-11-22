@@ -33,7 +33,9 @@ export const Post = ({
   const handleReply = () => {
     if (!user) {
       return toast.warning(
-        <p className="text-base text-start">Log in to reply.</p>
+        <p className="text-base text-start">
+          Login to post. The math awaits you!
+        </p>
       );
     }
     setIsReplyModalOpen(true);

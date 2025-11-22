@@ -27,7 +27,7 @@ const Home = () => {
 
   return (
     <div className="bg-black text-white flex justify-center dark">
-      <div className="min-h-screen border-x border-[#2f3336] sm:w-[70vw] md:w-[60vw] lg:w-[50vw] 2xl:w-[35vw] overflow-hidden">
+      <div className="min-h-screen border-x border-[#2f3336] w-full sm:w-[70vw] md:w-[60vw] lg:w-[50vw] 2xl:w-[35vw] overflow-hidden">
         {isAuthenticated && <CreatePost user={user} />}
         <ListPosts user={user} />
       </div>
