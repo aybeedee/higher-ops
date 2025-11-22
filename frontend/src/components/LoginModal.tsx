@@ -22,6 +22,7 @@ import { toast } from "sonner";
 
 export const LoginModal = ({ open, onOpenChange }: DialogProps) => {
   const queryClient = useQueryClient();
+
   const [loginData, setLoginData] = useState<AuthFormData>({
     username: "",
     password: "",

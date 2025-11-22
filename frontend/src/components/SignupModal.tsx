@@ -26,6 +26,7 @@ import { isAxiosError } from "axios";
 
 export const SignupModal = ({ open, onOpenChange }: DialogProps) => {
   const queryClient = useQueryClient();
+
   const [signupData, setSignupData] = useState<AuthFormData>({
     username: "",
     password: "",

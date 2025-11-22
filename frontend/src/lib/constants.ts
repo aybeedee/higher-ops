@@ -1,4 +1,5 @@
-export const MAX_STARTING_NUMBER = 9000;
+export const MAX_NUMBER = 9000;
+export const MIN_NUMBER = -9000;
 export const TAILWIND_BG_COLORS = [
   "bg-red-800 border-red-700",
   "bg-orange-800 border-orange-700",
@@ -18,3 +19,4 @@ export const TAILWIND_BG_COLORS = [
   "bg-pink-800 border-pink-700",
   "bg-rose-800 border-rose-700",
 ];
+export const DEFAULT_PAGE_SIZE = 20;
