@@ -57,13 +57,21 @@ export const ListPosts = ({ user }: { user?: User }) => {
         <Post key={post.id} post={post} user={user} />
       ))}
       {isFetchingNextPage && (
-        <div className="flex flex-col gap-2 justify-center items-center py-10">
+        <div
+          className={`flex flex-col gap-2 justify-center items-center py-10 ${
+            !user ? "pb-30" : ""
+          }`}
+        >
           <Spinner className="size-20 stroke-1" />
           <p className="italic">Getting you more numbers</p>
         </div>
       )}
       {posts.length > DEFAULT_PAGE_SIZE && !hasNextPage && (
-        <div className="flex flex-col justify-center text-center py-10 italic">
+        <div
+          className={`flex flex-col justify-center text-center py-10 italic ${
+            !user ? "pb-30" : ""
+          }`}
+        >
           <p className="text-teal-500 font-semibold">Congrats,</p>
           <p>your doomscrolling just shook hands with infinity</p>
         </div>
