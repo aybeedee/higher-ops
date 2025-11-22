@@ -40,8 +40,13 @@ export class OperationsService {
     const skip = Math.max(0, (Math.max(1, currentPage) - 1) * take);
 
     const [total, items] = await this.prisma.$transaction([
-      this.prisma.operation.count(),
+      this.prisma.operation.count({ where: { parentId: null } }),
       this.prisma.operation.findMany({
+        where: { parentId: null },
+        include: {
+          user: { select: { id: true, username: true } },
+          _count: { select: { children: true } },
+        },
         orderBy: { createdAt: "desc" },
         skip,
         take,
@@ -54,6 +59,7 @@ export class OperationsService {
         total,
         page: Math.max(1, currentPage),
         pageSize: take,
+        nextCursor: skip + take < total ? currentPage + 1 : null,
       },
     };
   }
