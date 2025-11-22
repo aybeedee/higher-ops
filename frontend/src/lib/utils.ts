@@ -1,17 +1,18 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { TAILWIND_BG_COLORS } from "./constants";
+import type { OperationType } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function getColor(num: number) {
+export const getColor = (num: number) => {
   const index = Math.abs(num) % TAILWIND_BG_COLORS.length;
   return TAILWIND_BG_COLORS[index];
-}
+};
 
-export function formatTimeAgo(utcTime: Date) {
+export const formatTimeAgo = (utcTime: Date) => {
   const utcDate = new Date(utcTime);
   const now = Date.now();
 
@@ -26,4 +27,17 @@ export function formatTimeAgo(utcTime: Date) {
   if (diffHour < 24) return `${diffHour}h`;
 
   return utcDate.toLocaleString("en-US", { month: "short", day: "numeric" });
-}
+};
+
+export const getOperationText = (op: OperationType) => {
+  switch (op) {
+    case "ADD":
+      return "Added";
+    case "SUB":
+      return "Subtracted";
+    case "MUL":
+      return "Mutliplied by";
+    case "DIV":
+      return "Divided by";
+  }
+};

@@ -117,7 +117,7 @@ export const ReplyModal = ({
                   <div className="size-[3px] bg-muted-foreground" />
                   <p>{formatTimeAgo(post.createdAt)}</p>
                 </div>
-                <p>{post.value}</p>
+                <p>{post.value.toLocaleString()}</p>
                 <div className="text-sm text-muted-foreground flex gap-1">
                   <p>Replying to</p>
                   <DialogDescription className="text-teal-500">

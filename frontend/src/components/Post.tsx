@@ -1,6 +1,6 @@
 import { Button, Spinner } from "@/components/atoms";
 import { useState } from "react";
-import { formatTimeAgo, getColor } from "@/lib/utils";
+import { formatTimeAgo, getColor, getOperationText } from "@/lib/utils";
 import { MessageCircle } from "lucide-react";
 import type { Operation, User } from "@/lib/types";
 import { ReplyModal } from "./ReplyModal";
@@ -65,7 +65,12 @@ export const Post = ({
             <div className="size-[3px] bg-muted-foreground" />
             <p>{formatTimeAgo(post.createdAt)}</p>
           </div>
-          <p>{post.value}</p>
+          {post.op && post.rightValue !== undefined && (
+            <p className="text-sm italic text-teal-500 font-medium">
+              {getOperationText(post.op)} {post.rightValue}
+            </p>
+          )}
+          <p>{post.value.toLocaleString()}</p>
           <div className="flex items-center w-full justify-between">
             <div>
               {post._count.children > 0 ? (
